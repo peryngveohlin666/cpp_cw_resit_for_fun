@@ -5,7 +5,7 @@
 #include <iterator>
 #include <sstream>
 
-std::vector<std::string> split(const std::string &s) {
+const std::vector<std::string> split(const std::string &s) {
     std::string str(s);
     std::string buf;
     std::stringstream ss(str);
@@ -16,7 +16,7 @@ std::vector<std::string> split(const std::string &s) {
     return elems;
 }
 
-std::vector<person> read_people(){
+const std::vector<person> const read_people(){
     std::vector<person> people;
     std::ifstream in("people.txt");
     std::string line;
@@ -34,14 +34,14 @@ std::vector<person> read_people(){
     return people;
 }
 
-void print_people_alive(const unsigned int year, std::vector<person> people){
+void print_people_alive(const unsigned int &year, std::vector<person> &people){
     std::vector<person> people_alive;
-    for (auto p : people){
+    for (auto &p : people){
         if (p.death >= year && p.birth <= year) {
             people_alive.push_back(p);
         }
     }
-    for (auto a : people_alive){
+    for (auto &a : people_alive){
         std::cout <<  a.name << " " << "(" << a.birth << "-" << a.death << ")" << '\n';
     }
 }
@@ -55,7 +55,7 @@ int main(){
     while(getline(std::cin, line)) {
         years.push_back(std::stoul(line));
     }
-    for (auto l : years){
+    for (auto &l : years){
         std::cout << "People alive in " << l << ":" << '\n';
         print_people_alive(l, peple);
     }
